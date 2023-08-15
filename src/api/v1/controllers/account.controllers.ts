@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { isValidEmail, accountExist } from '../helpers/index.js';
 import { PrismaClient } from '@prisma/client'
+import { sendEmail } from '../helpers/sendEmail.js';
 
 const prisma = new PrismaClient()
 
 export const AccountController = {
 
   register: async (req: Request, res: Response) => {
+
     const { email, username, password, name } = req.body;
 
     try {
@@ -27,6 +29,12 @@ export const AccountController = {
           }
         })
   
+        sendEmail({
+          to: email,
+          subject: 'Account Verification',
+          text: `Hello ${name}, This is an email verification for ${email}.`
+        })
+        
         res.json({ message: `Successfully registered email ${user.email}` });
   
         return
