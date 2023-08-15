@@ -1,13 +1,15 @@
-import express, { Router } from 'express';
+import Router from 'express';
 
-import userRoutes from './user.routes.js';
+import { AccountController, UserController } from '../controllers/index.js'
 
-const app = express();
+
 const router = Router();
 
-app.use('/users', userRoutes);
+// Account
+router.route('/account/register').post(AccountController.register)
 
-// router.route('/users').get(userRoutes);
-
+// Users
+router.route('/users').get(UserController.fetchUsers)
+router.route('/users/:id').get(UserController.fetchUserById)
 
 export default router

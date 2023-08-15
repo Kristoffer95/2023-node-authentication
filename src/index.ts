@@ -2,7 +2,8 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 
-import userRoute from './api/v1/routes/user.routes.js';
+import routes from './api/v1/routes/index.js';
+// import accountRoutes from './api/v1/routes/index.js';
 
 // const prisma = new PrismaClient()
 dotenv.config();
@@ -47,8 +48,7 @@ app.use(express.urlencoded());
 //   }
 // })
 
-app.use("/api/v1", userRoute);
-
+app.use("/api/v1/", routes);
 
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 8001;
 
