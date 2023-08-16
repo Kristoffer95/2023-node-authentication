@@ -4,14 +4,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 interface MailDetails {
-  to?: string
-  subject?: string
-  text?: string
+  to?: string;
+  subject?: string;
+  text?: string;
 }
 
-export const sendEmail = ({
-  to, subject, text
-}: MailDetails) => {
+export const sendEmail = ({ to, subject, text }: MailDetails) => {
   let mailTransporter = createTransport({
     service: 'gmail',
     port: 465,
@@ -21,27 +19,27 @@ export const sendEmail = ({
     // secureConnection: false,
     auth: {
       user: process.env.NODEMAILER_USER,
-      pass: process.env.NODEMAILER_PASS
+      pass: process.env.NODEMAILER_PASS,
     },
     tls: {
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   });
 
   let mailDetails = {
-      from: process.env.NODEMAILER_USER,
-      to: to,
-      subject: subject,
-      text: text
+    from: process.env.NODEMAILER_USER,
+    to: to,
+    subject: subject,
+    text: text,
   };
 
-  mailTransporter.sendMail(mailDetails, function(err, data) {
-      if(err) {
-          console.log(err);
-          
-          console.log('Error Occurs');
-      } else {
-          console.log('Email sent successfully');
-      }
+  mailTransporter.sendMail(mailDetails, function (err, data) {
+    if (err) {
+      console.log(err);
+
+      console.log('Error Occurs');
+    } else {
+      console.log('Email sent successfully');
+    }
   });
-}
+};
