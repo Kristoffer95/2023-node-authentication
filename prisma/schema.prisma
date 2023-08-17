@@ -7,19 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  username String   @unique
-  name     String
-  password String
-  role     UserRole @default(USER)
+model User {
+  id                       Int       @id @default(autoincrement())
+  email                    String    @unique
+  username                 String    @unique
+  first_name               String
+  last_name                String
+  password                 String
+  role_id                  Int
+  role                     Role  @relation(fields: [role_id], references: [id])
+  email_verified           Boolean   @default(false)
+  email_verification_token String
+  last_login               DateTime?
+  account_locked           Boolean   @default(false)
+  account_locked_until     DateTime?
+  created_at               DateTime  @default(now())
+  updated_at               DateTime  @updatedAt
 }
 
-enum UserRole {
-  USER
-  ADMIN
-  GUEST
+model Role {
+  id   Int    @id @default(autoincrement())
+  title String
+  description String?
+  users User[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 // // #03

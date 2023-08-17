@@ -1,4 +1,4 @@
-import { PrismaClient, Users } from '@prisma/client'
+import { PrismaClient, User } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -9,13 +9,13 @@ interface accountExist {
 
 export const accountExist = async ({email, username}: accountExist) => {
   try {
-    const isEmailExist: Users | null = await prisma.users.findUnique({
+    const isEmailExist: User | null = await prisma.user.findUnique({
       where: {
         email: email
       }
     })
 
-    const isUsernameExist: Users | null = await prisma.users.findUnique({
+    const isUsernameExist: User | null = await prisma.user.findUnique({
       where: {
         username: username
       }

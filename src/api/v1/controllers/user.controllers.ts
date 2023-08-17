@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 export const UserController = {
   fetchUsers: async (req: Request, res: Response) => {
     try {
-      const users = await prisma.users.findMany();
+      const users = await prisma.user.findMany();
 
       if (!users) res.status(404).send(null)
 
