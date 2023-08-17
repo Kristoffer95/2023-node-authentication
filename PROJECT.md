@@ -10,6 +10,7 @@
 ### Login
 - Basic email/username and password login.
 - Implement JWT (JSON Web Tokens) for stateless authentication.
+  - Probably gonna use redis on this
 - Refresh token mechanism to renew the JWT without having the user log in again.
 
 ### Logout

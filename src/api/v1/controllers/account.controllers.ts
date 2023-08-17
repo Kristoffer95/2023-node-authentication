@@ -5,11 +5,12 @@ import bcrypt from 'bcrypt';
 import { isValidEmail, accountExist } from '../helpers/index.js';
 import { PrismaClient } from '@prisma/client';
 import { sendEmail } from '../helpers/sendEmail.js';
+import { catchAsync } from '../middlewares/index.js';
 
 const prisma = new PrismaClient();
 
 export const AccountController = {
-  register: async (req: Request, res: Response) => {
+  register: catchAsync(async (req: Request, res: Response) => {
     const { 
       email,
       username,
@@ -19,7 +20,6 @@ export const AccountController = {
       role_id
     } = req.body;
 
-    try {
       if (await accountExist({ email, username })) {
         res.status(400).json({ message: 'Account already exist' });
         return;
@@ -29,6 +29,8 @@ export const AccountController = {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        const email_verification_token = randomBytes(64).toString('hex')
+
         const user = await prisma.user.create({
           data: {
             email,
@@ -37,7 +39,7 @@ export const AccountController = {
             first_name,
             last_name,
             role_id,
-            email_verification_token: randomBytes(64).toString('hex'),
+            email_verification_token,
           },
         });
 
@@ -45,6 +47,7 @@ export const AccountController = {
           to: email,
           subject: 'Account Verification',
           text: `Hello ${first_name}, This is an email verification for ${email}.`,
+          html: `<a href='http://localhost:8000/api/v1/verify-email/?token=${email_verification_token}' target='_blank'>Click to verify</b>`
         });
 
         res.json({ 
@@ -52,12 +55,6 @@ export const AccountController = {
           data: user
         });
 
-        return;
       }
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: 'Unable to register at the moment.' });
-    }
-  },
+  }),
 };
