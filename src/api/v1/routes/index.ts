@@ -1,24 +1,49 @@
-import Router from 'express';
+import { Router } from 'express';
 
-import { AccountController, EmailVerificationController, UserController } from '../controllers/index.js'
+import { EmailVerificationController, UserController } from '../controllers/index.js'
 import { DatabaseController } from '../controllers/database.controllers.js';
-import { guest } from '../middlewares/auth.middleware.js';
+// import { guest } from '../middlewares/auth.middleware.js';
 
+import AccountRoutes from './account.routes.js';
+import UserRoutes from './account.routes.js';
 
 const router = Router();
 
 // Account
-router.route('/account/register').post(guest, AccountController.register)
-
-// Email Verification
-router.route('/verify-email').get(EmailVerificationController.verify)
+router.use('/account', AccountRoutes)
 
 // Users
-router.route('/users').get(UserController.fetchUsers)
-router.route('/users/:id').get(UserController.fetchUserById)
+router.use('/users', UserRoutes)
 
 
-// Truncate
 router.route('/truncate').get(DatabaseController.truncate)
 
+// NOTE: Better to include this inside the account routes
+router.route('/verify-email').get(EmailVerificationController.verify)
+
 export default router
+
+
+
+
+
+// RECHECK THIS
+
+// // Account
+// router.route('/account/register').post(guest, AccountController.register)
+
+// // Email Verification
+// router.route('/verify-email').get(EmailVerificationController.verify)
+
+// // Users
+// router.route('/users').get(UserController.fetchUsers)
+// router.route('/users/:id').get(UserController.fetchUserById)
+
+
+// // Truncate
+// router.route('/truncate').get(DatabaseController.truncate)
+
+// export default router
+
+
+// export { router as usersRoutes } from './users.routes.js'
