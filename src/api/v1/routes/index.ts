@@ -2,12 +2,13 @@ import Router from 'express';
 
 import { AccountController, EmailVerificationController, UserController } from '../controllers/index.js'
 import { DatabaseController } from '../controllers/database.controllers.js';
+import { guest } from '../middlewares/auth.middleware.js';
 
 
 const router = Router();
 
 // Account
-router.route('/account/register').post(AccountController.register)
+router.route('/account/register').post(guest, AccountController.register)
 
 // Email Verification
 router.route('/verify-email').get(EmailVerificationController.verify)

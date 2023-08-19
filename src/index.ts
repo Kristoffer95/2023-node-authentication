@@ -1,16 +1,34 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
+import session from 'express-session';
+import { Redis } from 'ioredis';
 import morgan from 'morgan'
-import dotenv from 'dotenv';
-
 import routes from './api/v1/routes/index.js';
+import dotenv from 'dotenv';
+import RedisStore from 'connect-redis'
+
+import { 
+  REDIS_OPTIONS,
+  SESSION_OPTIONS,
+  APP_PORT
+} from './config/index.js';
+
+
+// const RedisStore = connectRedis(session)
+const client = new Redis(REDIS_OPTIONS)
 
 dotenv.config();
-
 const app: Express = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(morgan('dev'))
+
+app.use(
+  session({ 
+    ...SESSION_OPTIONS,
+    store: new RedisStore({ client })
+  })
+)
 
 app.use("/api/v1/", routes);
 
@@ -25,10 +43,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   })
 })
 
-const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 8001;
+// const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 8001;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(APP_PORT, () => {
+  console.log(`Server running on port ${APP_PORT}`);
 })
 
 

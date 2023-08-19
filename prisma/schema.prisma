@@ -36,7 +36,7 @@ model Role {
 
 // // #03
 
-// model Playlist {
+// model Playlist { 
 //   id          Int             @id @default(autoincrement())
 //   description String
 //   tracks      PlaylistTrack[]

@@ -2,10 +2,11 @@ import { Request, Response } from 'express';
 import { randomBytes } from 'crypto';
 import bcrypt from 'bcrypt';
 
-import { isValidEmail, accountExist } from '../helpers/index.js';
+import { isValidEmail, accountExist } from '../utils/index.js';
 import { PrismaClient } from '@prisma/client';
-import { sendEmail } from '../helpers/sendEmail.js';
+import { sendEmail } from '../utils/index.js';
 import { catchAsync } from '../middlewares/index.js';
+import { logIn } from '../utils/auth.utils.js';
 
 const prisma = new PrismaClient();
 
@@ -42,6 +43,8 @@ export const AccountController = {
             email_verification_token,
           },
         });
+
+        logIn(req, user.id);
 
         sendEmail({
           to: email,
