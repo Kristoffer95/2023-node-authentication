@@ -1,5 +1,5 @@
 import { SessionOptions } from 'express-session'
-import { IN_PROD } from './index.js'
+import { IN_PROD } from './'
 
 const MINUTE = 1000 * 60
 const HALF_HOUR = MINUTE * 30

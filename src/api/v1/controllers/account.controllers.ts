@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import { randomBytes } from 'crypto';
 import bcrypt from 'bcrypt';
 
-import { isValidEmail, accountExist } from '../utils/index.js';
+import { isValidEmail, accountExist } from '../utils';
 import { PrismaClient } from '@prisma/client';
-import { sendEmail } from '../utils/index.js';
-import { catchAsync } from '../middlewares/index.js';
-import { logIn } from '../utils/auth.utils.js';
+import { sendEmail } from '../utils';
+import { catchAsync } from '../middlewares';
+import { logIn } from '../utils';
 
 const prisma = new PrismaClient();
 

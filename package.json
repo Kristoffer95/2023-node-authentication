@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "npx tsc",
@@ -36,7 +35,8 @@
     "nodemailer": "^6.9.4",
     "redis": "^4.6.7",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@prisma/client": "^5.1.1",

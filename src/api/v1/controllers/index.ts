@@ -1,3 +1,3 @@
-export { UserController } from './user.controllers.js'
-export { AccountController } from './account.controllers.js'
-export { EmailVerificationController } from './email-verification.controllers.js'
+export { UserController } from './user.controllers'
+export { AccountController } from './account.controllers'
+export { EmailVerificationController } from './email-verification.controllers'

@@ -2,7 +2,7 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import session from 'express-session';
 import { Redis } from 'ioredis';
 import morgan from 'morgan'
-import routes from './api/v1/routes/index.js';
+import routes from './api/v1/routes';
 import dotenv from 'dotenv';
 import RedisStore from 'connect-redis'
 
@@ -10,7 +10,7 @@ import {
   REDIS_OPTIONS,
   SESSION_OPTIONS,
   APP_PORT
-} from './config/index.js';
+} from './config';
 
 
 // const RedisStore = connectRedis(session)

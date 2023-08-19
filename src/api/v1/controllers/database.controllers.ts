@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client'
-import { catchAsync } from '../middlewares/index.js';
+import { catchAsync } from '../middlewares';
 
 
 const prisma = new PrismaClient()

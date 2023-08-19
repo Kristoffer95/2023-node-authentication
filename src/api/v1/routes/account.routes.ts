@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { AccountController } from '../controllers/account.controllers.js';
-import { guest } from '../middlewares/index.js';
+import { AccountController } from '../controllers/account.controllers';
+import { guest } from '../middlewares';
 
 
 const router = Router();

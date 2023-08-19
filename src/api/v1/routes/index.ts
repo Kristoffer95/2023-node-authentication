@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import { EmailVerificationController, UserController } from '../controllers/index.js'
-import { DatabaseController } from '../controllers/database.controllers.js';
-// import { guest } from '../middlewares/auth.middleware.js';
+import { EmailVerificationController, UserController } from '../controllers'
+import { DatabaseController } from '../controllers/database.controllers';
+// import { guest } from '../middlewares/auth.middleware';
 
-import AccountRoutes from './account.routes.js';
-import UserRoutes from './account.routes.js';
+import AccountRoutes from './account.routes';
+import UserRoutes from './account.routes';
 
 const router = Router();
 
