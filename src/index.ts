@@ -6,12 +6,11 @@ import routes from './api/v1/routes'
 import dotenv from 'dotenv'
 import RedisStore from 'connect-redis'
 
-import { 
+import {
 	REDIS_OPTIONS,
 	SESSION_OPTIONS,
-	APP_PORT
+	APP_PORT,
 } from './config'
-
 
 // const RedisStore = connectRedis(session)
 const client = new Redis(REDIS_OPTIONS)
@@ -24,22 +23,22 @@ app.use(express.urlencoded())
 app.use(morgan('dev'))
 
 app.use(
-	session({ 
+	session({
 		...SESSION_OPTIONS,
-		store: new RedisStore({ client })
-	})
+		store: new RedisStore({ client }),
+	}),
 )
 
 app.use('/api/v1/', routes)
 
 app.use((req, res: Response) => {
-	res.status(404).json({ message: 'Not Found'})
+	res.status(404).json({ message: 'Not Found' })
 })
 
 app.use((err: Error, req: Request, res: Response) => {
 	console.log(err.stack)
 	res.status(500).json({
-		message: 'Internal Server Error'
+		message: 'Internal Server Error',
 	})
 })
 
@@ -48,5 +47,3 @@ app.use((err: Error, req: Request, res: Response) => {
 app.listen(APP_PORT, () => {
 	console.log(`Server running on port ${APP_PORT}`)
 })
-
-

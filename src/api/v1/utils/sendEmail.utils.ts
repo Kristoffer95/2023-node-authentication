@@ -4,13 +4,18 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 interface MailDetails {
-  to: string;
-  subject: string;
-  text: string;
-  html: string
+	to: string
+	subject: string
+	text: string
+	html: string
 }
 
-export const sendEmail = ({ to, subject, text, html }: MailDetails) => {
+export const sendEmail = ({
+	to,
+	subject,
+	text,
+	html,
+}: MailDetails) => {
 	const mailTransporter = createTransport({
 		service: 'gmail',
 		port: 465,
@@ -32,7 +37,7 @@ export const sendEmail = ({ to, subject, text, html }: MailDetails) => {
 		to,
 		subject,
 		text,
-		html
+		html,
 	}
 
 	mailTransporter.sendMail(mailDetails, function (err) {

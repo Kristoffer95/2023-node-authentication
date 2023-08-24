@@ -1,10 +1,6 @@
-export {
-	isValidEmail
-} from './isValidEmail.utils'
+export { isValidEmail } from './isValidEmail.utils'
 
-export {
-	accountExist
-} from './checkAccount.utils'
+export { accountExist } from './checkAccount.utils'
 
 export { sendEmail } from './sendEmail.utils'
 

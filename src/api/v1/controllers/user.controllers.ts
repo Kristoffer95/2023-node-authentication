@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { catchAsync } from '../middlewares'
 
-
 const prisma = new PrismaClient()
 
 export const UserController = {
@@ -16,7 +15,7 @@ export const UserController = {
 
 	fetchUserById: (req: Request, res: Response) => {
 		const { id } = req.params
-    
+
 		res.json({ message: `id is ${id}` })
 	},
 }

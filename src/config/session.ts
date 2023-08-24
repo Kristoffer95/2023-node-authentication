@@ -7,9 +7,8 @@ const HALF_HOUR = MINUTE * 30
 const {
 	SESSION_SECRET = 'please keep this as secret',
 	SESSION_NAME = 'sid',
-	SESSION_IDLE_TIMEOUT = HALF_HOUR
+	SESSION_IDLE_TIMEOUT = HALF_HOUR,
 } = process.env
-
 
 export const SESSION_OPTIONS: SessionOptions = {
 	secret: SESSION_SECRET,
@@ -17,9 +16,9 @@ export const SESSION_OPTIONS: SessionOptions = {
 	cookie: {
 		maxAge: +SESSION_IDLE_TIMEOUT,
 		secure: IN_PROD,
-		sameSite: true
+		sameSite: true,
 	},
 	rolling: true,
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
 }
