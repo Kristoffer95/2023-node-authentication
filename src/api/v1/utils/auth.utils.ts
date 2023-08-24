@@ -7,10 +7,10 @@ declare module 'express-session' {
   }
 }
 
-export const logIn =  (req: Request, user: number): Boolean => {
-  req.session.userId = user;
+export const logIn =  (req: Request, user: number): boolean => {
+	req.session.userId = user
   
-  return false
+	return false
 }
 
-export const isLoggedIn = (req: Request) => !!req.session.userId;
+export const isLoggedIn = (req: Request) => !!req.session.userId

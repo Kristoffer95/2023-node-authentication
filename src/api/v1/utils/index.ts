@@ -1,11 +1,11 @@
 export {
-  isValidEmail
-} from './isValidEmail.utils';
+	isValidEmail
+} from './isValidEmail.utils'
 
 export {
-  accountExist
-} from './checkAccount.utils';
+	accountExist
+} from './checkAccount.utils'
 
-export { sendEmail } from './sendEmail.utils';
+export { sendEmail } from './sendEmail.utils'
 
-export { logIn } from './auth.utils';
+export { logIn } from './auth.utils'

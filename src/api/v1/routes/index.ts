@@ -1,13 +1,13 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import { EmailVerificationController, UserController } from '../controllers'
-import { DatabaseController } from '../controllers/database.controllers';
+import { EmailVerificationController } from '../controllers'
+import { DatabaseController } from '../controllers/database.controllers'
 // import { guest } from '../middlewares/auth.middleware';
 
-import AccountRoutes from './account.routes';
-import UserRoutes from './account.routes';
+import AccountRoutes from './account.routes'
+import UserRoutes from './account.routes'
 
-const router = Router();
+const router = Router()
 
 // Account
 router.use('/account', AccountRoutes)

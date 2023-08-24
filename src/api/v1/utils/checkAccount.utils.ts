@@ -8,28 +8,28 @@ interface accountExist {
 }
 
 export const accountExist = async ({email, username}: accountExist) => {
-  try {
-    const isEmailExist: User | null = await prisma.user.findUnique({
-      where: {
-        email: email
-      }
-    })
+	try {
+		const isEmailExist: User | null = await prisma.user.findUnique({
+			where: {
+				email: email
+			}
+		})
 
-    const isUsernameExist: User | null = await prisma.user.findUnique({
-      where: {
-        username: username
-      }
-    })
+		const isUsernameExist: User | null = await prisma.user.findUnique({
+			where: {
+				username: username
+			}
+		})
     
-    if (isEmailExist || isUsernameExist) {
-      return true
-    }
+		if (isEmailExist || isUsernameExist) {
+			return true
+		}
     
-    return false
+		return false
 
-  } catch (error) {
-    throw new Error("Something went wrong.")
-  }
+	} catch (error) {
+		throw new Error('Something went wrong.')
+	}
 }
 
 // export const usernameExist = async (username: string) => {}

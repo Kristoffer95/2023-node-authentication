@@ -1,22 +1,22 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
-import { catchAsync } from '../middlewares';
+import { catchAsync } from '../middlewares'
 
 
 const prisma = new PrismaClient()
 
 export const UserController = {
-  fetchUsers: catchAsync(async (req: Request, res: Response) => {
-      const users = await prisma.user.findMany();
+	fetchUsers: catchAsync(async (req: Request, res: Response) => {
+		const users = await prisma.user.findMany()
 
-      if (!users) res.status(404).send(null)
+		if (!users) res.status(404).send(null)
 
-      res.json({ users });
-  }),
+		res.json({ users })
+	}),
 
-  fetchUserById: (req: Request, res: Response) => {
-    const { id } = req.params
+	fetchUserById: (req: Request, res: Response) => {
+		const { id } = req.params
     
-    res.json({ message: `id is ${id}` });
-  },
+		res.json({ message: `id is ${id}` })
+	},
 }
