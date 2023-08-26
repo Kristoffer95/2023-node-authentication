@@ -9,12 +9,17 @@
     "prestart": "npm run build",
     "start": "node dist/index.js",
     "predev": "npm run build",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "dev": "ts-node-dev --poll src/index.ts",
     "migrate": "prisma migrate dev --name",
     "prisma:studio": "npx prisma studio",
-    "prisma:migrate": "prisma migrate dev --skip-seed",
-    "prisma:format": "prisma format",
-    "prisma:generate": "prisma generate"
+    "prisma:migrate": "npx prisma migrate dev --skip-seed",
+    "prisma:format": "npx prisma format",
+    "prisma:generate": "npx prisma generate",
+    "prisma:reset": "npx prisma reset",
+    "predocker:up": "rm -rf docker-data",
+    "docker:up": "docker compose -f docker-compose.dev.yml up --build",
+    "predocker:down": "rm -rf docker-data",
+    "docker:down": "docker compose -f docker-compose.dev.yml down"
   },
   "keywords": [],
   "author": "",
@@ -48,8 +53,10 @@
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "nodemon": "^3.0.1",
     "prettier": "^3.0.2",
     "prisma": "^5.1.1",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.6"
   }
 }

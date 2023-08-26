@@ -1,7 +1,8 @@
 # TODO LIST
 
-[] - ESlint
-[] - Dockerize
+[x] - ESlint
+[x] - Prettier
+[x] - Dockerize
 [] - Express-Rate-Limit
       - https://www.youtube.com/shorts/uI2mwYWh9hc
 [] - Routes
