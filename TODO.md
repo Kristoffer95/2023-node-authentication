@@ -11,4 +11,5 @@
       [] - Forgot Password
       [] - Profile
       [] - Edit Profile
+      [] - Expiration for email verification link
 [] - CORS

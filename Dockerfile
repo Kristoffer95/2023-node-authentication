@@ -4,14 +4,13 @@ FROM node:18.17-alpine3.18 as development
 WORKDIR /usr/src/app
 
 COPY package*.json .
-COPY prisma ./prisma
 
 RUN npm install
 
-COPY . .
-
+COPY prisma ./prisma
 RUN npx prisma generate
-# RUN npm run prisma:studio
+
+COPY . .
 
 RUN npm run build
 
@@ -22,7 +21,6 @@ ENV NODE_ENV=${NODE_ENV}
 
 COPY package*.json .
 COPY prisma ./prisma
-
 
 RUN npm ci --only=production
 
