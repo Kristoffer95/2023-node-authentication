@@ -11,5 +11,6 @@ npx prisma migrate dev
 # run PSQL
 
 ```bash
-docker exec -it integration-tests-prisma psql -U postgres
+docker exec -it [api_container_name] psql -U postgres
+# ex. docker exec -it integration-tests-prisma psql -U postgres
 ```

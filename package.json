@@ -18,8 +18,11 @@
     "prisma:reset": "npx prisma reset",
     "predocker:up": "rm -rf docker-data",
     "docker:up": "docker compose -f docker-compose.dev.yml up --build",
+    "docker:up:detached": "docker compose -f docker-compose.dev.yml up --build -d",
     "predocker:down": "rm -rf docker-data",
-    "docker:down": "docker compose -f docker-compose.dev.yml down"
+    "docker:down": "docker compose -f docker-compose.dev.yml down",
+    "docker:start": "docker compose -f docker-compose.dev.yml start",
+    "docker:stop": "docker compose -f docker-compose.dev.yml stop"
   },
   "keywords": [],
   "author": "",

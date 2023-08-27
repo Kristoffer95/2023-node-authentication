@@ -12,7 +12,4 @@
 
 # Can check node version in https://hub.docker.com/_/node
 FROM node:18.17-alpine3.18 as development
-
-
-
 ```
