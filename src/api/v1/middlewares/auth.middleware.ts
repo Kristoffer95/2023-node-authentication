@@ -12,3 +12,15 @@ export const guest = (
 
 	next()
 }
+
+export const authed = (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	if (!isLoggedIn(req)) {
+		return next(new Error('You are not logged in'))
+	}
+
+	next()
+}

@@ -22,7 +22,10 @@
     "predocker:down": "rm -rf docker-data",
     "docker:down": "docker compose -f docker-compose.dev.yml down",
     "docker:start": "docker compose -f docker-compose.dev.yml start",
-    "docker:stop": "docker compose -f docker-compose.dev.yml stop"
+    "docker:stop": "docker compose -f docker-compose.dev.yml stop",
+    "docker:restart": "docker compose -f docker-compose.dev.yml restart",
+    "docker:logs": "docker-compose logs -f"
+
   },
   "keywords": [],
   "author": "",

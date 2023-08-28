@@ -20,9 +20,10 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 COPY package*.json .
-COPY prisma ./prisma
 
 RUN npm ci --only=production
+
+COPY prisma ./prisma
 
 COPY --from=development /usr/src/app/dist ./dist
 
