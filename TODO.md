@@ -7,12 +7,23 @@
       [x] - Login
       [x] - Logout
       [] - Forgot Password
+            - 1st option:
+              - If logged in:
+                - Check if account exists(additional checking)
+                - Ask for new password then reset password
+            - 2nd option:
+              - If not logged in:
+                - 1st step: Send email with link to reset password
+                - 2nd step: Ask for new password, then reset password
       [] - Profile
+            - Basic fetching of user data
       [] - Edit Profile
+            - Basic Updating of user data
       [] - Expiration for email verification link
 [] - Express-Rate-Limit
       - https://www.youtube.com/shorts/uI2mwYWh9hc
 [] - CORS
+[] - Tests
 [] - Error handling
       - So paths wont show up on the error.
         - Ex. error:

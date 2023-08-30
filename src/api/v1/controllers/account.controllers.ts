@@ -7,6 +7,9 @@ import { PrismaClient } from '@prisma/client'
 import { sendEmail } from '../utils'
 import { catchAsync } from '../middlewares'
 import { logIn } from '../utils'
+import { isLoggedIn } from '../utils/auth.utils'
+
+import type { Account } from '../types'
 
 const prisma = new PrismaClient()
 
@@ -98,29 +101,124 @@ export const AccountController = {
 		})
 	}),
 
-	reset: catchAsync(async (req: Request, res: Response) => {
-		// const { email } = req.body
-		// const user = await prisma.user.findUnique({
-		// 	where: { email },
-		// })
-		// if (!user) {
-		// 	res.status(400).json({ message: 'Invalid credentials' })
-		// 	return
-		// }
-		// const password_reset_token = randomBytes(64).toString('hex')
-		// await prisma.user.update({
-		// 	where: { id: user.id },
-		// 	data: { password_reset_token },
-		// })
-		// sendEmail({
-		// 	to: email,
-		// 	subject: 'Password Reset',
-		// 	text: `Hello ${user.first_name}, This is a password reset for ${email}.`,
-		// 	html: `<a href='http://localhost:8000/api/v1/reset-password/?token=${password_reset_token}' target='_blank'>Click to reset</b>`,
-		// })
-		// res.json({
-		// 	message: `Successfully sent password reset to ${user.email}`,
-		// 	data: user,
-		// })
-	}),
+	sendPasswordResetEmail: catchAsync(
+		async (req: Request, res: Response) => {
+			const { email } = req.body
+			const user = await prisma.user.findUnique({
+				where: { email },
+			})
+
+			console.log(user)
+
+			if (!user) {
+				res.status(400).json({ message: 'Invalid credentials' })
+				return
+			}
+			const password_reset_token =
+				randomBytes(64).toString('hex')
+			await prisma.user.update({
+				where: { id: user.id },
+				data: {
+					email_verification_token: password_reset_token,
+				},
+			})
+			sendEmail({
+				to: email,
+				subject: 'Password Reset',
+				text: `Hello ${user.first_name}, This is a password reset for ${email}.`,
+				html: `<a href='http://localhost:8000/api/v1/reset-password/?token=${password_reset_token}' target='_blank'>Click to reset</b>`,
+			})
+			res.json({
+				message: `Successfully sent password reset to ${user.email}`,
+				data: user,
+			})
+		},
+	),
+
+	updatePassword: catchAsync(
+		async (req: Request, res: Response) => {
+			// const args = req.body
+			const args:
+				| Account.TUpdatePassword
+				| Account.TUpdatePasswordWithToken = req.body
+
+			/**
+			 * SECTION: If logged in
+			 * - check user by id through session
+			 * - update password
+			 */
+
+			if (isLoggedIn(req)) {
+				// const { oldPassword, newPassword } = args
+				const { oldPassword, newPassword } =
+					args as Account.TUpdatePassword
+
+				// Additional check
+				const user = await prisma.user.findUnique({
+					where: { id: req.session.userId },
+				})
+
+				/**
+				 * REVIEW: Need to review as copilot is the one suggesting this code
+				 */
+				if (!user) {
+					res
+						.status(400)
+						.json({ message: 'Invalid credentials' })
+					return
+				}
+
+				if (await bcrypt.compare(oldPassword, user.password)) {
+					const hashedPassword = await bcrypt.hash(
+						newPassword,
+						10,
+					)
+
+					await prisma.user.update({
+						where: { id: user.id },
+						data: {
+							password: hashedPassword,
+						},
+					})
+
+					res.json({
+						message: `Successfully updated password for ${user.email}`,
+						data: user,
+					})
+					return
+				}
+				res.status(400).json({ message: 'Invalid credentials' })
+				return
+			}
+
+			/**
+			 * SECTION: If not logged in
+			 * - Find user by token
+			 * - Update password
+			 */
+
+			// const user = await prisma.user.findUnique({
+			// 	where: { email_verification_token: token },
+			// })
+
+			// if (!user) {
+			// 	res.status(400).json({ message: 'Invalid credentials' })
+			// 	return
+			// }
+
+			// const hashedPassword = await bcrypt.hash(password, 10)
+
+			// await prisma.user.update({
+			// 	where: { id: user.id },
+			// 	data: {
+			// 		password: hashedPassword,
+			// 	},
+			// })
+
+			// res.json({
+			// 	message: `Successfully updated password for ${user.email}`,
+			// 	data: user,
+			// })
+		},
+	),
 }

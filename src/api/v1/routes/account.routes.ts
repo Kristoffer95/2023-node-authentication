@@ -10,6 +10,12 @@ router.route('/login').post(guest, AccountController.login)
 
 router.route('/logout').post(authed, AccountController.logout)
 
-router.route('/reset').post(guest, AccountController.reset)
+// Send reset email
+router
+	.route('/reset')
+	.get(guest, AccountController.sendPasswordResetEmail)
+	.post(AccountController.updatePassword)
+
+// Reset password
 
 export default router
