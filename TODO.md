@@ -6,7 +6,7 @@
 [] - Routes
       [x] - Login
       [x] - Logout
-      [] - Forgot Password
+      [x] - Forgot Password
             - 1st option:
               - If logged in:
                 - Check if account exists(additional checking)

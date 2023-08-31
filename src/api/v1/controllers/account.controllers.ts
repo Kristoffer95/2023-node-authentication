@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 import { sendEmail } from '../utils'
 import { catchAsync } from '../middlewares'
 import { logIn } from '../utils'
-import { isLoggedIn } from '../utils/auth.utils'
+import { isLoggedIn, logOut } from '../utils/auth.utils'
 
 import type { Account } from '../types'
 
@@ -95,10 +95,7 @@ export const AccountController = {
 	),
 
 	logout: catchAsync(async (req: Request, res: Response) => {
-		req.session.destroy(() => {
-			res.clearCookie(process.env.SESS_NAME!)
-			res.json({ message: 'Successfully logged out' })
-		})
+		logOut(req, res)
 	}),
 
 	sendPasswordResetEmail: catchAsync(
@@ -137,10 +134,16 @@ export const AccountController = {
 
 	updatePassword: catchAsync(
 		async (req: Request, res: Response) => {
-			// const args = req.body
+			/**
+			 * ANCHOR: Wanted Feature
+			 * 	- email_verification_token - token expiration(1 hour)
+			 * 		after sending email (Probably using redis)
+			 *
+			 */
+
 			const args:
-				| Account.TUpdatePassword
-				| Account.TUpdatePasswordWithToken = req.body
+				| Account.AuthedUpdatePassword
+				| Account.GuestUpdatePassword = req.body
 
 			/**
 			 * SECTION: If logged in
@@ -151,16 +154,13 @@ export const AccountController = {
 			if (isLoggedIn(req)) {
 				// const { oldPassword, newPassword } = args
 				const { oldPassword, newPassword } =
-					args as Account.TUpdatePassword
+					args as Account.AuthedUpdatePassword
 
 				// Additional check
 				const user = await prisma.user.findUnique({
 					where: { id: req.session.userId },
 				})
 
-				/**
-				 * REVIEW: Need to review as copilot is the one suggesting this code
-				 */
 				if (!user) {
 					res
 						.status(400)
@@ -197,28 +197,33 @@ export const AccountController = {
 			 * - Update password
 			 */
 
-			// const user = await prisma.user.findUnique({
-			// 	where: { email_verification_token: token },
-			// })
+			const { token, email, password } =
+				args as Account.GuestUpdatePassword
 
-			// if (!user) {
-			// 	res.status(400).json({ message: 'Invalid credentials' })
-			// 	return
-			// }
+			const user = await prisma.user.findFirst({
+				where: { email_verification_token: token, email: email },
+			})
 
-			// const hashedPassword = await bcrypt.hash(password, 10)
+			if (!user) {
+				res.status(400).json({ message: 'Invalid credentials' })
+				return
+			}
 
-			// await prisma.user.update({
-			// 	where: { id: user.id },
-			// 	data: {
-			// 		password: hashedPassword,
-			// 	},
-			// })
+			// res.json({ message: 'User exist', user })
 
-			// res.json({
-			// 	message: `Successfully updated password for ${user.email}`,
-			// 	data: user,
-			// })
+			const hashedPassword = await bcrypt.hash(password, 10)
+
+			await prisma.user.update({
+				where: { id: user.id },
+				data: {
+					password: hashedPassword,
+				},
+			})
+
+			res.json({
+				message: `Successfully updated password for ${user.email}`,
+				data: user,
+			})
 		},
 	),
 }

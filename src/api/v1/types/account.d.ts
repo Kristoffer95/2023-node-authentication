@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 export namespace Account {
-	type TUpdatePassword = {
+	/**
+	 * When updating a password while logged in
+	 */
+	type AuthedUpdatePassword = {
 		oldPassword: string
 		newPassword: string
 	}
 
-	type TUpdatePasswordWithToken = {
+	/**
+	 * When updating a password while not logged in
+	 */
+	type GuestUpdatePassword = {
 		token: string
+		email: string
 		password: string
 	}
 }
