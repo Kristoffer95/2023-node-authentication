@@ -24,7 +24,8 @@
     "docker:start": "docker compose -f docker-compose.dev.yml start",
     "docker:stop": "docker compose -f docker-compose.dev.yml stop",
     "docker:restart": "docker compose -f docker-compose.dev.yml restart",
-    "docker:logs": "docker-compose logs -f"
+    "docker:logs": "docker-compose logs -f",
+    "docker:sh": "docker exec -it prisma-node-typescript-api-1 sh"
   },
   "keywords": [],
   "author": "",

@@ -15,8 +15,10 @@
               - If not logged in:
                 - 1st step: Send email with link to reset password
                 - 2nd step: Ask for new password, then reset password
-      [] - Profile
-            - Basic fetching of user data
+      [x] - Profile
+            - Create profile table
+            - Basic fetching of Profile data(Profile Table)
+            - 
       [] - Edit Profile
             - Basic Updating of user data
       [] - Expiration for email verification link

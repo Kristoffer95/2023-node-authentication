@@ -15,7 +15,7 @@ model User {
   last_name                String
   password                 String
   role_id                  Int
-  role                     Role  @relation(fields: [role_id], references: [id])
+  role                     Role      @relation(fields: [role_id], references: [id])
   email_verified           Boolean   @default(false)
   email_verification_token String
   last_login               DateTime?
@@ -23,29 +23,31 @@ model User {
   account_locked_until     DateTime?
   created_at               DateTime  @default(now())
   updated_at               DateTime  @updatedAt
+  profile                  Profile?
 }
 
 model Role {
-  id   Int    @id @default(autoincrement())
-  title String
+  id          Int      @id @default(autoincrement())
+  title       String
   description String?
-  users User[]
+  users       User[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
+
+model Profile {
+  id         Int      @id @default(autoincrement())
+  user_id    Int      @unique
+  user       User     @relation(fields: [user_id], references: [id])
+  bio        String?
+  avatar     String?
+  website    String?
+  twitter    String?
+  github     String?
+  linkedin   String?
+  location   String?
+  skills     String?
+  interests  String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
-
-// // #03
-
-// model Playlist { 
-//   id          Int             @id @default(autoincrement())
-//   description String
-//   tracks      PlaylistTrack[]
-// }
-
-// model PlaylistTrack {
-//   id         Int      @id @default(autoincrement())
-//   addedAt    DateTime @default(now())
-//   playlistId Int
-//   playlist   Playlist @relation(fields: [playlistId], references: [id])
-//   trackId    Int
-// }

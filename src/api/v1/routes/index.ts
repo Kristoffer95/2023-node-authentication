@@ -6,15 +6,20 @@ import { DatabaseController } from '../controllers/database.controllers'
 
 import AccountRoutes from './account.routes'
 import UserRoutes from './users.routes'
+import ProfileRoutes from './profile.routes'
 
 const router = Router()
 
 // Account
 router.use('/account', AccountRoutes)
 
-// Users
+// User
 router.use('/users', UserRoutes)
 
+// Profile
+router.use('/profiles', ProfileRoutes)
+
+// Reset
 router.route('/truncate').get(DatabaseController.truncate)
 
 // NOTE: Better to include this inside the account routes
