@@ -19,7 +19,10 @@ export const authed = (
 	next: NextFunction,
 ) => {
 	if (!isLoggedIn(req)) {
-		return next(new Error('You are not logged in'))
+		// return next(new Error('You are not logged in'))
+		return res
+			.status(401)
+			.json({ message: 'You are not logged in' })
 	}
 
 	next()

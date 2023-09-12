@@ -22,7 +22,10 @@ router.use('/profiles', ProfileRoutes)
 // Reset
 router.route('/truncate').get(DatabaseController.truncate)
 
-// NOTE: Better to include this inside the account routes
+/**
+ * NOTE: Better to include this inside the account routes
+ * - update GET to DELETE
+ */
 router
 	.route('/verify-email')
 	.get(EmailVerificationController.verify)

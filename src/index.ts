@@ -36,7 +36,7 @@ app.use((req, res: Response) => {
 })
 
 app.use((err: Error, req: Request, res: Response) => {
-	console.log(err.stack)
+	// console.log(err.stack)
 	res.status(500).json({
 		message: 'Internal Server Error',
 	})

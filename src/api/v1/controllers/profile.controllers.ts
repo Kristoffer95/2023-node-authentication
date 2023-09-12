@@ -20,4 +20,8 @@ export const ProfileController = {
 
 		res.json({ message: `id is ${id}` })
 	},
+
+	updateProfileById: (req: Request, res: Response) => {
+		res.json({ message: 'TO DO: updateProfileById' })
+	},
 }
