@@ -26,7 +26,7 @@
       - https://www.youtube.com/shorts/uI2mwYWh9hc
 [] - CORS
 [] - Tests
-[] - Error handling
+[x] - Error handling
       - So paths wont show up on the error.
         - Ex. error:
             Error: You are not logged in
