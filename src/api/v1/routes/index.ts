@@ -8,6 +8,8 @@ import AccountRoutes from './account.routes'
 import UserRoutes from './users.routes'
 import ProfileRoutes from './profile.routes'
 
+import TestRoutes from './test.routes'
+
 const router = Router()
 
 // Account
@@ -21,6 +23,9 @@ router.use('/profiles', ProfileRoutes)
 
 // Reset
 router.route('/truncate').get(DatabaseController.truncate)
+
+// Test
+router.use('/test', TestRoutes)
 
 /**
  * NOTE: Better to include this inside the account routes

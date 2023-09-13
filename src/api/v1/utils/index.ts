@@ -5,3 +5,5 @@ export { accountExist } from './checkAccount.utils'
 export { sendEmail } from './sendEmail.utils'
 
 export { logIn } from './auth.utils'
+
+export { AppError } from './appError.utils'
