@@ -1,4 +1,4 @@
-import express, { Express } from 'express'
+import express, { Express, Request, Response } from 'express'
 import session from 'express-session'
 import { Redis } from 'ioredis'
 import morgan from 'morgan'
@@ -32,9 +32,9 @@ app.use(
 
 app.use('/api/v1/', routes)
 
-// app.use((req, res: Response) => {
-// 	res.status(404).json({ message: 'Not Found' })
-// })
+app.use((req: Request, res: Response) => {
+	res.status(404).json({ message: 'Not Found' })
+})
 
 // app.use((err: Error, req: Request, res: Response) => {
 // 	console.log(err)
