@@ -13,7 +13,6 @@ import {
 	APP_PORT,
 } from './config'
 
-// const RedisStore = connectRedis(session)
 const client = new Redis(REDIS_OPTIONS)
 
 dotenv.config()

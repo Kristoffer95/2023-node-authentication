@@ -22,7 +22,7 @@
       [] - Edit Profile
             - Basic Updating of user data
       [] - Expiration for email verification link
-[] - Express-Rate-Limit
+[x] - Express-Rate-Limit
       - https://www.youtube.com/shorts/uI2mwYWh9hc
 [] - CORS
 [] - Tests

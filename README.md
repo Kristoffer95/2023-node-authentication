@@ -20,8 +20,8 @@ FROM node:18.17-alpine3.18 as development
 [x]  - Email Verification
 [x]  - Forgot Password(Send email with link to reset password)
 [x] - User session with redis
-[]  - Better Error handling
-[]  - Limiting Network Traffic
+[x]  - Better Error handling
+[x]  - Limiting Network Traffic
       - using express-rate-limit
 []  - CORS
 [x] - Dockerized
